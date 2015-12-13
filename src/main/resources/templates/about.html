@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!-- The above 3 meta tags *must* come first in the head; any other head characters must come *after* these tags -->
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <link rel="icon" href="favicon.ico"/>
+
+    <title>Spring Boot Banner Generator</title>
+
+    <link href="bootstrap.min.css" rel="stylesheet"/>
+    <link href="jumbotron-narrow.css" rel="stylesheet"/>
+</head>
+
+<body>
+<div class="container">
+    <div class="header clearfix">
+        <nav>
+            <ul class="nav nav-pills pull-right">
+                <li role="presentation"><a href="/">Home</a></li>
+                <li role="presentation"><a href="/banner" th:href="@{/banner}">Generate</a></li>
+                <li role="presentation" class="active"><a href="/about" th:href="@{/about}">About</a></li>
+            </ul>
+        </nav>
+        <h3 class="text-muted">Spring Boot Banner Generator</h3>
+    </div>
+
+    <div class="jumbotron">
+        <h1>Banner Generator</h1>
+
+        <p class="lead">This was made purely for fun. Please use at your own discretion!</p>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2015 <a href="mailto:dhubau@gmail.com">Dieter Hubau</a></p>
+    </footer>
+</div>
+</body>
+</html>

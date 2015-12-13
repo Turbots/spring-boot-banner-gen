@@ -1,0 +1,21 @@
+.banner-text-html {
+    overflow-y: auto;
+    font-size: 10px;
+    font-family: Andale Mono, monospace;
+    line-height: 0.8em;
+}
+
+.banner-text-ansi {
+    height: 200px;
+    overflow-y: auto;
+}
+
+.banner-text-ansi > textarea {
+    width: 100%;
+    height: 165px;
+    overflow-y: scroll;
+}
+
+.form-inline {
+    margin: 20px 0;
+}

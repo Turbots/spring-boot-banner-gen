@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!-- The above 3 meta tags *must* come first in the head; any other head characters must come *after* these tags -->
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <link rel="icon" href="favicon.ico"/>
+
+    <title>Spring Boot Banner Generator</title>
+
+    <link href="bootstrap.min.css" rel="stylesheet"/>
+    <link href="jumbotron-narrow.css" rel="stylesheet"/>
+    <link href="custom.css" rel="stylesheet"/>
+</head>
+
+<body>
+<div class="container">
+    <div class="header clearfix">
+        <nav>
+            <ul class="nav nav-pills pull-right">
+                <li role="presentation"><a href="/">Home</a></li>
+                <li role="presentation" class="active"><a href="/banner" th:href="@{/banner}">Generate</a></li>
+                <li role="presentation"><a href="/about" th:href="@{/about}">About</a></li>
+            </ul>
+        </nav>
+        <h3 class="text-muted">Spring Boot Banner Generator</h3>
+    </div>
+
+    <div class="jumbotron">
+        <h1>Upload your image</h1>
+
+        <p class="lead">Upload an image to generate a banner from.</p>
+    </div>
+
+    <!--@thymesVar id="bannerOptions" type="be.ordina.cloudfoundry.banner.BannerOptions"-->
+    <form class="form-inline" th:object="${bannerOptions}" th:action="@{/banner}" method="POST"
+          enctype="multipart/form-data">
+        <div class="form-group" th:classappend="${#fields.hasErrors('image')}? 'has-error'">
+            <label class="sr-only" for="image">Image</label>
+
+            <input type="file" class="form-control" th:field="*{image}" id="image" placeholder="Image"
+                   draggable="true"/>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" class="form-control" th:field="*{dark}" placeholder="Dark"/> Dark?
+            </label>
+        </div>
+        <button type="submit" class="btn btn-primary">Generate!</button>
+    </form>
+    <div class="panel panel-success" th:if="${banner != null}">
+        <div class="panel-heading">HTML Banner</div>
+        <div class="panel-body banner-text-html" th:utext="${banner.html}">
+            HTML
+        </div>
+    </div>
+    <button type="button" data-clipboard-target="#ansiBanner" class="btn btn-info" style="margin-bottom: 20px"
+            th:if="${banner != null}">
+        Copy To Clipboard
+    </button>
+    <div class="panel panel-success" th:if="${banner != null}">
+        <div class="panel-heading">Spring Boot Banner</div>
+        <div class="panel-body banner-text-ansi">
+            <textarea id="ansiBanner" th:utext="${banner.ansi}" title="ANSI">ANSI</textarea>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2015 <a href="mailto:dhubau@gmail.com">Dieter Hubau</a></p>
+    </footer>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.5/clipboard.min.js"></script>
+<script>
+    var clipboard = new Clipboard('.btn-info');
+
+    clipboard.on('success', function (e) {
+        e.clearSelection();
+    });
+
+    function allowDrop(ev) {
+        ev.preventDefault();
+    }
+
+    function drop(ev) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+        ev.target.appendChild(document.getElementById(data));
+    }
+</script>
+</body>
+</html>

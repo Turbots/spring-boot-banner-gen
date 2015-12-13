@@ -1,0 +1,10 @@
+---
+memory: 512M
+instances: 1
+env:
+  JBP_CONFIG_OPEN_JDK_JRE: '[memory_calculator: {memory_heuristics: {heap: 70, metaspace: 10, stack: 10, native: 10}}]'
+applications:
+- name: spring-boot-banner-gen
+  path: target/cf-banner-gen-0.0.1-SNAPSHOT.jar
+  buildpack: https://github.com/cloudfoundry/java-buildpack
+  timeout: 120
